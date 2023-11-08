@@ -157,3 +157,23 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+function sendMessage() {
+  //show loading image
+  // $('.loader').show();
+  // $('.loader').css('opacity', 1);
+  var email = $('#fashionEmail').val();
+  $.ajax({
+    type: "POST",
+    url: "https://script.google.com/macros/s/AKfycbzPQwJKo9QS44-zjUUdXH2h90RdgiIBO44YhqIVNYKah5kDJaGwelpMpZY-a8FZHa9wsw/exec",
+    data: { email: email }
+  }).done(function(msg) {
+    //show success message
+    // $('#h1Text').text('Thank you for subscribing!');
+    // $('#h2Text').text('We work hard to deliver the best experience for you!');
+    // $('#h4Text').hide();
+    // $('#subscribeForm').hide();
+    // $('.loader').css('opacity', 0);
+    // $('.loader').hide();
+  });
+}
