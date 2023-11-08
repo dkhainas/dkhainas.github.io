@@ -159,21 +159,30 @@ for (let i = 0; i < navigationLinks.length; i++) {
 }
 
 function sendMessage() {
-  //show loading image
-  // $('.loader').show();
-  // $('.loader').css('opacity', 1);
-  var email = $('#fashionEmail').val();
-  $.ajax({
-    type: "POST",
-    url: "https://script.google.com/macros/s/AKfycbzPQwJKo9QS44-zjUUdXH2h90RdgiIBO44YhqIVNYKah5kDJaGwelpMpZY-a8FZHa9wsw/exec",
-    data: { email: email }
-  }).done(function(msg) {
-    //show success message
-    // $('#h1Text').text('Thank you for subscribing!');
-    // $('#h2Text').text('We work hard to deliver the best experience for you!');
-    // $('#h4Text').hide();
-    // $('#subscribeForm').hide();
-    // $('.loader').css('opacity', 0);
-    // $('.loader').hide();
-  });
+  // Get the value of the form inputs
+  var fullname = formInputs[0].value;
+  var email = formInputs[1].value;
+  var message = formInputs[2].value;
+
+  // Define the data to send in the POST request
+  var formData = new FormData();
+  formData.append('email', email);
+  formData.append('name', fullname);
+  formData.append('message', message);
+  formData.append('source', document.location.hostname);
+
+  // Use fetch API to make the POST request
+  fetch("https://script.google.com/macros/s/AKfycbwE7IxtcuUu3xyHR-YgmCWjW0UxzJmKwXnx0fK2bp6d5Qs75BiKKKiux4wqKKkBzgrgWQ/exec", {
+    method: "POST",
+    body: formData
+  })
+      .then(response => response.json()) // Parse the JSON response
+      .then(data => {
+        // This is where you handle the response. For example, you could alert the user.
+        alert("Thank you for your message!");
+      })
+      .catch(error => {
+        // Handle any errors here
+        console.error('Error:', error);
+      });
 }
